@@ -18,8 +18,8 @@ The server is listening on port 8080.
 
 ## Browser compatibility
 
-[x] Chrome
-[ ] Firefox (broken)
-[x] Iceweasel
+- [x] Chrome
+- [ ] Firefox (broken)
+- [x] Iceweasel
 
 * Opera: untested
