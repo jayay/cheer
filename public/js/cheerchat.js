@@ -1,12 +1,12 @@
 /*
- * Closure: Unterbindet die Benutzung globaler Variablen.
+ * Closure
  */
 var myUserName = userNameGenerator();
 var CheerChat = (function() {
   'use-strict';
   
   /*
-   * Erzeugt nötige Objekte, aber verbindet noch nicht.
+   *
    */
   var CheerChat = function() {
     var that = this;
@@ -32,7 +32,7 @@ var CheerChat = (function() {
   CheerChat.vendorURL = window.URL || window.webkitURL;
   
   /*
-   * Stellt die Verbindung zum Signalling-Server her.
+   * Connects to signalling server.
    */
   CheerChat.prototype.initConnection = function(userName, callback) {
     var that = this;
@@ -50,7 +50,6 @@ var CheerChat = (function() {
     that._signallingSocket.onopen = function(event) { 
       console.log('Connected with signalling server.');
     
-      //Den eigenen Usernamen zum Server senden.
       var nameChangeObj = {
         Joghurt_type: "name_change",
         value: that.userName
@@ -58,7 +57,6 @@ var CheerChat = (function() {
       that._signallingSocket.send(JSON.stringify(nameChangeObj));
     };
     
-    //Socket-Events registrieren
     that._signallingSocket.onmessage = function(msg){
       var recvData;
       try {
@@ -131,7 +129,7 @@ var CheerChat = (function() {
   };
   
   /*
-   * Verbindet sich mit einem anderen User (aktiv).
+   * 
    */
   CheerChat.prototype.connect = function(foreignUser) {
     var that = this;
