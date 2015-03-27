@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>cheer!</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body onLoad="connect();">
+    <header>
+      <img src="logo.png" alt="cheer! logo">
+      <h1>cheer!</h1>
+      <small>Your chat, secure.</small>
+      <div id="menubar">
+        <ul>
+          <li><a id="ConnectButton" onClick="startVideo(getForeignName(), true);">Start Video &gt;</a></li>
+          <li></li>
+          <!--<li><a onClick="toggleInputNameWrapper();">name &#x270E;</a></li>
+          <li></li>-->
+          <li>Your name: <span id="myUserName"></span></li>
+        </ul>
+      </div>
+      <div id="optionsbar">
+        <span>Talking to:</span>
+        <select name="chatpartners">
+        </select>
+        <span id="choosenamewrapper" data-hidden="true">
+          <input type="text" placeholder="Your name" name="userName"><input type="button" value="OK" onClick="changeName();">
+        </span>
+      </div>
+    </header>
+    <div id="cheerwrapper">
+      <video id="CAM" class="camera" autoplay mute></video>
+      <div id="youlabel">&#x2191; you<br>your partner &#x2192;</div>
+      <video id="CAMForeign" class="camera" autoplay></video>
+      
+      <div id="chatwindow">
+        <div id="history"></div>
+        <input type="text" name="textinput" onkeydown="if (event.keyCode == 13) { sendMessage(textField.value);textField.value=''; }">
+        <input type="button" value="send" onClick="sendMessage(textField.value);textField.value='';">
+      </div>
+    </div>
+    <footer>
+      cheer! <span style="color: #aa6767;">&#x2665;</span>
+      |
+      <a href="#">about</a>
+      |
+      <a href="#">development</a>
+    </footer>
+    <script type="text/javascript" src="js/ui.js"></script>
+    <script type="text/javascript" src="js/cheerchat.js"></script>
+  </body>
+</html>

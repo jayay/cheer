@@ -1,0 +1,29 @@
+{
+  "name": "cheer",
+  "version": "0.0.1",
+  "description": "P2P chat over WebRTC",
+  "main": "cheer-server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jayay/cheer.git"
+  },
+  "keywords": [
+    "peer-to-peer",
+    "chat",
+    "webrtc",
+    "html5"
+  ],
+  "author": "jayay, minzchicken, Marie Lena Brosch",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "0.0.2",
+    "http": "0.0.0",
+    "ws": "^0.7.1"
+  }
+}
