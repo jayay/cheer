@@ -21,5 +21,6 @@ The server is listening on port 8080.
 - [x] Chrome
 - [ ] Firefox (broken)
 - [x] Iceweasel
+- [ ] Safari iPhone
 
 * Opera: untested
