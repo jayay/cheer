@@ -2,7 +2,6 @@
  *
  */
 function CheerServer(documentRoot) {
-  parent = this; // clean up as fast as possible!
   this.documentRoot = documentRoot || "./public";
   this.http = require('http');
   this.ws = require('ws');
@@ -41,7 +40,7 @@ CheerServer.prototype.createWebServer = function() {
       }
     });
   });
-  
+
   server.listen(8080, "0.0.0.0", function() {
     console.log("Server up and running");
   });
@@ -71,6 +70,7 @@ CheerServer.prototype.SocketHandlerOnConnection = function(socket) {
  * @param ws.WebSocket socket
  */
 CheerServer.prototype.SocketHandlerOnClose = function(socket) {
+  var parent = this;
   for (var i = 0; i < parent.Users.length; i++) {
     if (this.Users[i] == socket) {
       delete this.Users[i];
@@ -86,7 +86,6 @@ CheerServer.prototype.SocketHandlerOnClose = function(socket) {
 CheerServer.prototype.SocketHandlerOnMessage = function(message, socket) {
   try {
     Joghurt = JSON.parse(message);
-//    console.log(message);
 
     if (Joghurt.Joghurt_type == 'name_change') {
       socket.Joghurt_name = Joghurt.value;
@@ -159,8 +158,9 @@ CheerServer.prototype.guid = function() {
  * call this to run the servers
  */
 CheerServer.prototype.run = function() {
+  var parent = this;
   this.createWebServer();
-  
+
   this.webSocketServer = new this.ws.Server({ port : 8081 });
   this.webSocketServer.on('connection', function(socket) {
     parent.SocketHandlerOnConnection(socket);
