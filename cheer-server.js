@@ -90,20 +90,20 @@ CheerServer.prototype.SocketHandlerOnMessage = function(message, socket) {
     if (Joghurt.Joghurt_type == 'name_change') {
       socket.Joghurt_name = Joghurt.value;
       this.getUserList();
-  	} else if (Joghurt.Joghurt_type == 'offer' || Joghurt.Joghurt_type == 'answer') {
+    } else if (Joghurt.Joghurt_type == 'offer' || Joghurt.Joghurt_type == 'answer') {
       this.Users.forEach(function(i){
         if (i.Joghurt_name === Joghurt.Joghurt_target) {
           try {
-        		i.send(message);
-         	} catch (e) {
-        		console.log("again", e);
-        	}
+            i.send(message);
+          } catch (e) {
+            console.log("again", e);
+          }
         }
       });
     } else {
       this.Users.forEach(function(i){
         try {
-      		i.send(message);
+      	  i.send(message);
       	} catch (e) {}
       	return;
       });
@@ -121,7 +121,7 @@ CheerServer.prototype.getUserList = function(socket) {
 
   for (var userObject in this.Users) {
     if (!this.Users.hasOwnProperty(userObject)) {
-        continue;
+      continue;
     }
     userlist.push(this.Users[userObject].Joghurt_name);
   }
@@ -135,7 +135,7 @@ CheerServer.prototype.getUserList = function(socket) {
 
   this.Users.forEach(function(i) {
     try {
-    	i.send(JSON.stringify(userListItem));
+      i.send(JSON.stringify(userListItem));
     } catch (e) {}
   });
 };
@@ -149,9 +149,9 @@ CheerServer.prototype.guid = function() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
-    }
+  }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-  s4() + '-' + s4() + s4() + s4();
+    s4() + '-' + s4() + s4() + s4();
 };
 
 /**
