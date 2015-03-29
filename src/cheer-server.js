@@ -15,8 +15,7 @@ function CheerServer(documentRoot) {
 CheerServer.prototype.createWebServer = function() {
   var parent = this;
   var server = this.http.createServer(function (req, res) {
-  if(req.url == '/') {
-    parent.fs.readFile(parent.documentRoot + '/index.html', function(error, data) {
+    var onError = function (error, data) {
       if (error) {
         console.log(error);
         res.writeHead(404, 'text/plain');
@@ -25,20 +24,25 @@ CheerServer.prototype.createWebServer = function() {
         res.writeHead(200, 'text/html');
         res.end(data);
       }
-    });
-  return;
-  }
+    };
 
-    parent.fs.readFile(parent.documentRoot + req.url, function(error, data) {
-      if(error) {
-        console.log("No resource like that");
-        res.writeHead(404, "text/plain");
-        res.end("Nope");
-      } else {
-        res.writeHead(200, "text/html");
-        res.end(data);
-      }
-    });
+    if (req.url == '/') {
+      parent.fs.readFile(parent.documentRoot + '/index.html', onError);
+      return;
+    } else if (req.url == '/cheerchat.js') {
+      parent.fs.readFile('./src/cheerchat.js', onError);
+    } else {
+      parent.fs.readFile(parent.documentRoot + req.url, function(error, data) {
+        if (error) {
+          console.log("No resource like that");
+          res.writeHead(404, "text/plain");
+          res.end("Nope");
+        } else {
+          res.writeHead(200, "text/html");
+          res.end(data);
+        }
+      });
+    }
   });
 
   server.listen(8080, "0.0.0.0", function() {
