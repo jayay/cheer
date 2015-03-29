@@ -2,7 +2,7 @@
   "name": "cheer",
   "version": "0.0.1",
   "description": "P2P chat over WebRTC",
-  "main": "cheer-server.js",
+  "main": "src/cheer-server.js",
   "directories": {
     "doc": "docs"
   },
