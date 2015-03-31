@@ -56,10 +56,10 @@ CheerServer.prototype.createWebServer = function() {
  */
 CheerServer.prototype.SocketHandlerOnConnection = function(socket) {
   var parent = this;
-  socket.Joghurt_uid = parent.guid();
+  socket.cheer_uid = parent.guid();
   parent.Users.push(socket);
 
-  socket.Joghurt_status = 'no_offer';
+  socket.cheer_status = 'no_offer';
   parent.getUserList(socket);
 
   socket.on('close', function() {
@@ -89,19 +89,17 @@ CheerServer.prototype.SocketHandlerOnClose = function(socket) {
  */
 CheerServer.prototype.SocketHandlerOnMessage = function(message, socket) {
   try {
-    Joghurt = JSON.parse(message);
+    CheerProperties = JSON.parse(message);
 
-    if (Joghurt.Joghurt_type == 'name_change') {
-      socket.Joghurt_name = Joghurt.value;
+    if (CheerProperties.cheer_type == 'name_change') {
+      socket.cheer_name = CheerProperties.value;
       this.getUserList();
-    } else if (Joghurt.Joghurt_type == 'offer' || Joghurt.Joghurt_type == 'answer') {
+    } else if (CheerProperties.cheer_type == 'offer' || CheerProperties.cheer_type == 'answer') {
       this.Users.forEach(function(i){
-        if (i.Joghurt_name === Joghurt.Joghurt_target) {
+        if (i.cheer_name === CheerProperties.cheer_target) {
           try {
             i.send(message);
-          } catch (e) {
-            console.log("again", e);
-          }
+          } catch (e) {}
         }
       });
     } else {
@@ -127,10 +125,10 @@ CheerServer.prototype.getUserList = function(socket) {
     if (!this.Users.hasOwnProperty(userObject)) {
       continue;
     }
-    userlist.push(this.Users[userObject].Joghurt_name);
+    userlist.push(this.Users[userObject].cheer_name);
   }
 
-  var userListItem = {Joghurt_type: "namelist", value: userlist};
+  var userListItem = { cheer_type: "namelist", value: userlist };
 
   if (null != socket) {
     socket.send(JSON.stringify(userListItem));

@@ -3,17 +3,16 @@ var chatLogElement = document.getElementById('history');
 var textField = document.getElementsByName('textinput')[0];
 
 function toggleInputNameWrapper() {
-    var elementById = document.getElementById("choosenamewrapper");
-    
-    if (isInputNameStatusHidden()) {
-        elementById.setAttribute("data-hidden", "false");
-    } else {
-        elementById.setAttribute("data-hidden", "true");
-    }
+  var elementById = document.getElementById("choosenamewrapper");
+  if (isInputNameStatusHidden()) {
+    elementById.setAttribute("data-hidden", "false");
+  } else {
+    elementById.setAttribute("data-hidden", "true");
+  }
 }
 
 function isInputNameStatusHidden() {
-    return document.getElementById("choosenamewrapper").getAttribute("data-hidden") == "true";
+  return document.getElementById("choosenamewrapper").getAttribute("data-hidden") == "true";
 }
 
 function getForeignName() {
@@ -21,8 +20,8 @@ function getForeignName() {
 }
 
 function changeName() {
-    myName = document.getElementsByName("userName")[0].value;
-    sendMyName(myName);
+  myName = document.getElementsByName("userName")[0].value;
+  sendMyName(myName);
 }
 
 function scrollDownHistory() {
@@ -38,4 +37,4 @@ function displayUserName() {
 
 window.setTimeout(function() {
   displayUserName();
-  }, 100);
+}, 100);

@@ -55,7 +55,7 @@ var CheerChat = (function() {
     that._signallingSocket.onopen = function(event) {
 
       var nameChangeObj = {
-        Joghurt_type: "name_change",
+        cheer_type: "name_change",
         value: that.userName
       };
       that._signallingSocket.send(JSON.stringify(nameChangeObj));
@@ -69,14 +69,14 @@ var CheerChat = (function() {
         return;
       }
 
-      if (recvData.Joghurt == that.userName) {
+      if (recvData.cheer_name == that.userName) {
         return;
       }
       if (typeof recvData.value !== 'object' && typeof recvData.value !== 'array') {
         return;
       }
 
-      if(recvData.Joghurt_type == "offer") {
+      if(recvData.cheer_type == "offer") {
         var offer = new CheerChat.RTCSessionDescription(recvData.value);
         for (var i in recvData.value) {
           if (!recvData.value.hasOwnProperty(i)) {
@@ -87,14 +87,14 @@ var CheerChat = (function() {
 
         that._peerConnection.setRemoteDescription(offer, function() {
           that._peerConnection.createAnswer(function(answer) {
-            answer.Joghurt_type = "answer";
+            answer.cheer_type = "answer";
             that._peerConnection.setLocalDescription(answer, function(){}, function(){});
 
-            var wrapper = {Joghurt : userName, Joghurt_type : "answer", value : answer, Joghurt_target : recvData.Joghurt };
+            var wrapper = {cheer_name : userName, cheer_type : "answer", value : answer, cheer_target : recvData.cheer_name };
             var jsonAnswer = JSON.stringify(wrapper);
             that._signallingSocket.send(jsonAnswer);
 
-            callback(recvData.Joghurt);
+            callback(recvData.cheer_name);
 
             that.isConnected = true;
           });
@@ -102,7 +102,7 @@ var CheerChat = (function() {
           console.log('session error:', e);
         });
 
-      } else if (recvData.Joghurt_type == "answer") {
+      } else if (recvData.cheer_type == "answer") {
         var offer = new CheerChat.RTCSessionDescription(recvData.value);
         for (var i in recvData.value) {
           if (!recvData.value.hasOwnProperty(i)) {
@@ -112,7 +112,7 @@ var CheerChat = (function() {
           offer[i] = recvData.value[i];
         }
         that._peerConnection.setRemoteDescription(offer, function(){}, function(){});
-      } else if (recvData.Joghurt_type == "namelist") {
+      } else if (recvData.cheer_type == "namelist") {
         var selectElement = document.getElementsByName("chatpartners")[0];
         selectElement.innerHTML = "";
         for (i in recvData.value) {
@@ -137,7 +137,7 @@ var CheerChat = (function() {
 
     that._peerConnection.createOffer(
       function(offer) {
-        var wrapper = {Joghurt : that.userName, Joghurt_type : "offer", value : offer, Joghurt_target : foreignUser };
+        var wrapper = {cheer_name : that.userName, cheer_type : "offer", value : offer, cheer_target : foreignUser };
         that._peerConnection.setLocalDescription(offer, function(){}, function(){});
         that._signallingSocket.send(JSON.stringify(wrapper));
 
