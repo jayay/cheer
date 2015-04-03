@@ -157,16 +157,22 @@ CheerServer.prototype.guid = function() {
 };
 
 /**
- * call this to run the servers
+ * @param Object options
  */
-CheerServer.prototype.run = function() {
+CheerServer.prototype.createWsServer = function(options) {
   var parent = this;
-  this.createWebServer();
-
-  this.webSocketServer = new this.ws.Server({ port : 8081 });
+  this.webSocketServer = new this.ws.Server(options);
   this.webSocketServer.on('connection', function(socket) {
     parent.SocketHandlerOnConnection(socket);
   });
+};
+
+/**
+ * call this to run the servers
+ */
+CheerServer.prototype.run = function() {
+  this.createWebServer();
+  this.createWsServer({ port : 8081 });
 };
 
 module.exports = CheerServer;
