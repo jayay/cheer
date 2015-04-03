@@ -16,6 +16,12 @@ $ npm start
 
 The server is listening on port 8080.
 
+### Run the tests
+
+```
+$ npm test
+```
+
 ## Browser compatibility
 
 - [x] Chrome
