@@ -25,8 +25,8 @@ $ npm test
 ## Browser compatibility
 
 - [x] Chrome
-- [ ] Firefox (broken)
+  - [x] Chrome on Android
+- [ ] Firefox
 - [x] Iceweasel
-- [ ] Safari iPhone
-
-* Opera: untested
+- [ ] Safari on iPhone
+- [ ] Opera
